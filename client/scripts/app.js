@@ -49,6 +49,16 @@ var App = {
       Messages._data = [];
       for (message of data) {
       //  debugger;
+        for (var key in message) {
+          if (!message[key]) {
+            message[key] = 'empty input';
+          }
+          if (typeof message[key] !== 'string') {
+            message[key] = 'invalid input type';
+            //this is where we check usernames and values to make sure they are strings, and wont screw our code  by running ".includes" on the string with all the special characters, and changing to the string to "invalid input type" if true
+            //--TO BE IMPLIMENTED ONCE EVERYTHING IS WORKING -- NOT BEFORE--
+          }
+        }
         Messages.addMessage(message);
         Rooms.addRoom(message.roomname);
         Friends.addFriend(message.username, message.github_handle);

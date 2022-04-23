@@ -40,12 +40,6 @@ var MessagesView = {
   },
 
   renderMessage: function(message) {
-    for (var key in message) {
-      if (!message.key) {
-        message[key] = 'empty';
-      }
-    }
-
     MessageView.render(message);
   },
 
