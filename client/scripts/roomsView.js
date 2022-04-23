@@ -6,13 +6,19 @@ var RoomsView = {
   $button: $('#rooms button'),
   $select: $('#rooms select'),
 
+
   initialize: function() {
     // TODO: Perform any work which needs to be done
     // when this view loads.
+    //RoomsView.render();
   },
 
   render: function() {
     // TODO: Render out the list of rooms.
+    // for (room in Rooms._data) {
+    //   debugger;
+    //   $select.append('<option>' + room + '</option>');
+    // }
   },
 
   renderRoom: function(roomname) {

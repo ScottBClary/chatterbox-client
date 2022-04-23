@@ -2,6 +2,8 @@
 // It should initialize the other parts of the application
 // and begin making requests to the Parse API for data.
 
+// $(document).ready(function() {
+
 var App = {
 
   $spinner: $('.spinner img'),
@@ -9,17 +11,29 @@ var App = {
   username: 'anonymous',
 
   initialize: function() {
-    //debugger;
+
     App.username = window.location.search.substr(10);
 
+    var loadSuccessFunction = function() {
+      FormView.initialize();
+      RoomsView.initialize();
+      MessagesView.initialize();
+      App.stopSpinner();
+    };
 
-    FormView.initialize();
-    RoomsView.initialize();
-    MessagesView.initialize();
-
-    // Fetch initial batch of messages
     App.startSpinner();
-    App.fetch(App.stopSpinner);
+    //debugger;
+    App.fetch(loadSuccessFunction);
+
+    // var recurse = function() {
+    //   FormView.initialize();
+    //   RoomsView.initialize();
+    //   MessagesView.initialize();
+    //   setTimeout(recurse, 1000);
+    // };
+    // recurse();
+    //MessagesView.$chats.append($(MessageView.render({username: 'scott', text:'message'})));
+    // Fetch initial batch of messages
 
     // TODO: Make sure the app loads data from the API
     // continually, instead of just once at the start.
@@ -28,7 +42,7 @@ var App = {
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
       // examine the response from the server request:
-      console.log(data);
+      //console.log(data);
 
       // TODO: Use the data to update Messages and Rooms
       // and re-render the corresponding views.
@@ -64,7 +78,7 @@ var App = {
         Friends.addFriend(message.username, message.github_handle);
       }
 
-
+      callback();
       //send messages to the message 'storage' (likey be an object), will either have to clear that object first, or delete dupes
       //stringify everything before you do anything with it
       //check roomName, if room exists on list, do nothing, if absent add to list
@@ -84,3 +98,6 @@ var App = {
     FormView.setStatus(false);
   }
 };
+App.initialize();
+App.stopSpinner();
+// });

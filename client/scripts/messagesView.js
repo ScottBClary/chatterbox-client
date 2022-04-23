@@ -13,8 +13,8 @@ var MessagesView = {
     //Which m
 
     App.fetch();
-
-    //MessagesView.render();
+    //debugger;
+    MessagesView.render();
 
   },
   /*
@@ -31,16 +31,22 @@ var MessagesView = {
   */
   render: function() {
     // TODO: Render _all_ the messages.
-    //MessagesView.$chats.append($(MessageView.render("Hello")));
-    for (var i = 0; i < 5; i++) {
-      MessagesView.$chats.append($(MessagesView.renderMessage(Messages._data[i])));
+    // MessagesView.$chats.append($(MessageView.render({username: 'scott', text:'message'}))); WORKS
+    var messageList = Messages.getMessages();
+    for (var i = 0; i < messageList.length; i++) {
+      var currentMessage = messageList[i];
+      var readyForSite = MessageView.render(currentMessage);
+      MessagesView.$chats.append($(readyForSite));
     }
+
     // MessagesView.render --
     //   for each message, in messages, append to DOM messageView(message)
   },
 
   renderMessage: function(message) {
-    MessageView.render(message);
+
+    var renderedText = MessageView.render(message);
+    MessagesView.$chats.append($(renderedText));
   },
 
   handleClick: function(event) {
